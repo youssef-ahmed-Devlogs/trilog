@@ -2,13 +2,13 @@
 
 ob_start();
 session_start();
-include 'connect.php';
+include_once 'connect.php';
 
 $App   = 'includes/App/';
 
-include $App . 'functions.php';
-include $App . 'head.php';
+include_once $App . 'functions.php';
+include_once $App . 'head.php';
 
 if (!isset($noNavbar)) {
-    include $App . 'navbar.php';
+    include_once $App . 'navbar.php';
 }

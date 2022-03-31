@@ -1,6 +1,6 @@
 <?php
 
-$pageTitle = 'Profile';
+$pageTitle = 'Friends';
 include 'init.php';
 
 if (!isset($_SESSION['id'])) {
@@ -21,7 +21,7 @@ $postsCount = count($posts);
 
 
 // Get friends of this user
-$friends = selectRows("SELECT users.id AS userid, users.fname, users.lname FROM friends
+$friends = selectRows("SELECT users.id AS userid, users.fname, users.lname, users.bio FROM friends
 JOIN users ON users.id = friends.req_user OR users.id = friends.send_user
 WHERE (req_user = ? OR send_user = ?) AND accepted = 1 AND users.id <> ?", [$_SESSION['id'], $_SESSION['id'], $_SESSION['id']]);
 $friendsCount = count($friends);
@@ -101,27 +101,23 @@ $friendsCount = count($friends);
                 <?php include 'includes/profile/profile-page-side.php' ?>
             </div>
             <div class="col">
-
-                <?php include 'includes/posts/add-post.php'; ?>
                 <div id="posts-area">
+                    <div class="row my-friends-list">
+                        <?php foreach ($friends as $fr) { ?>
+                            <div class="col-xl-4 col-lg-6 mb-4">
+                                <?php include 'includes/friends/person-card.php' ?>
+                            </div>
+                        <?php } ?>
+                    </div>
 
-                    <?php
-                    // Display posts for this user only
-
-                    foreach ($posts as $post) {
-                        include 'includes/posts/post.php';
-                    }
-
-                    ?>
-
-                    <?php if (count($posts) <= 0) { ?>
-                        <div class="content-empty mt-2">You has no posts.</div>
+                    <?php if (count($friends) <= 0) { ?>
+                        <div class="content-empty">You has no friends.</div>
                     <?php } ?>
                 </div>
             </div>
         </div>
     </div>
-    <button class="d-none render-posts" data-uid="<?php echo $_SESSION['id'] ?>"></button>
+    <button class="d-none render-posts"></button>
 
 </main>
 

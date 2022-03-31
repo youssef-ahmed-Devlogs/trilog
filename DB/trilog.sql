@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 21, 2022 at 04:28 AM
+-- Generation Time: Mar 24, 2022 at 03:09 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -38,9 +38,11 @@ CREATE TABLE `avatar` (
 --
 
 INSERT INTO `avatar` (`id`, `name`, `user`) VALUES
-(2, '4.jpg', 2),
-(3, '8.jpg', 1),
-(4, '12.jpg', 1);
+(10, '699560691774516.jpeg', 1),
+(11, '795393700275240.jpeg', 2),
+(12, '742005112557951.jpeg', 2),
+(13, '394165657822167.jpeg', 3),
+(14, '38474302544964.jpeg', 3);
 
 -- --------------------------------------------------------
 
@@ -61,20 +63,14 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`id`, `comment`, `user`, `post`, `time`) VALUES
-(2, 'gammed', 3, 11, '1647815377'),
-(3, 'good mornnig my friend', 2, 21, '1647821675'),
-(5, 'newwwwwwwww', 1, 31, '1647824597'),
-(6, 'newwsssas', 1, 31, '1647824652'),
-(7, 'ds', 1, 31, '1647824790'),
-(8, 'ds', 1, 31, '1647824791'),
-(9, 'ds', 1, 31, '1647824791'),
-(10, 'ds', 1, 31, '1647824791'),
-(11, 'ds', 1, 31, '1647824792'),
-(12, 'ddddddddd', 1, 31, '1647824833'),
-(13, '222222222222222', 1, 31, '1647824865'),
-(14, 'dsadaaaaaaaaaaaaaaaaaaaaa', 1, 31, '1647824873'),
-(15, 'ddddddddddddddddddd', 1, 31, '1647824878'),
-(16, 'جميلة', 1, 10, '1647829532');
+(177, 'Gammed', 2, 97, '1648128719'),
+(178, '❤️', 1, 98, '1648128985'),
+(179, 'gammed gdn', 3, 98, '1648129658'),
+(180, 'صباح النور ❤️', 2, 99, '1648130095'),
+(181, 'الف مبروك', 2, 100, '1648130112'),
+(182, 'true ❤️', 2, 102, '1648130688'),
+(183, 'جمدااان', 3, 102, '1648130818'),
+(184, 'جامد جدا ده', 3, 102, '1648130835');
 
 -- --------------------------------------------------------
 
@@ -93,12 +89,55 @@ CREATE TABLE `comments_likes` (
 --
 
 INSERT INTO `comments_likes` (`id`, `user`, `comment`) VALUES
-(2, 1, 3),
-(4, 2, 2),
-(6, 1, 2),
-(7, 1, 16),
-(8, 1, 15),
-(9, 1, 14);
+(23, 1, 177),
+(24, 2, 178),
+(25, 3, 178),
+(26, 3, 182);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comments_reply`
+--
+
+CREATE TABLE `comments_reply` (
+  `id` bigint(20) NOT NULL,
+  `reply` text NOT NULL,
+  `user` bigint(20) NOT NULL,
+  `comment` bigint(20) NOT NULL,
+  `time` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `comments_reply`
+--
+
+INSERT INTO `comments_reply` (`id`, `reply`, `user`, `comment`, `time`) VALUES
+(136, 'Thanks ', 1, 177, '1648128924'),
+(137, 'thanks', 2, 178, '1648129006'),
+(138, 'اقبلي الادد ', 3, 182, '1648130795');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `friends`
+--
+
+CREATE TABLE `friends` (
+  `id` bigint(20) NOT NULL,
+  `req_id` bigint(20) DEFAULT NULL,
+  `send_user` bigint(20) NOT NULL,
+  `req_user` bigint(20) NOT NULL,
+  `accepted` tinyint(4) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `friends`
+--
+
+INSERT INTO `friends` (`id`, `req_id`, `send_user`, `req_user`, `accepted`) VALUES
+(91, 13, 3, 1, 1),
+(92, 12, 1, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -117,18 +156,40 @@ CREATE TABLE `likes` (
 --
 
 INSERT INTO `likes` (`id`, `user`, `post`) VALUES
-(32, 2, 12),
-(34, 2, 10),
-(35, 2, 2),
-(36, 2, 3),
-(43, 1, 11),
-(44, 1, 9),
-(47, 1, 22),
-(52, 1, 23),
-(53, 1, 24),
-(55, 1, 12),
-(56, 1, 10),
-(57, 1, 31);
+(89, 2, 97),
+(90, 1, 98),
+(91, 1, 97),
+(92, 3, 97),
+(93, 3, 98),
+(94, 2, 100),
+(95, 2, 102),
+(96, 3, 102);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `messages`
+--
+
+CREATE TABLE `messages` (
+  `id` bigint(20) NOT NULL,
+  `chat_id` bigint(20) NOT NULL,
+  `text` text NOT NULL,
+  `send_user` bigint(20) NOT NULL,
+  `req_user` bigint(20) NOT NULL,
+  `time` varchar(255) NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `messages`
+--
+
+INSERT INTO `messages` (`id`, `chat_id`, `text`, `send_user`, `req_user`, `time`) VALUES
+(95, 13, 'Hello Youssef', 3, 1, '1648129781'),
+(96, 13, 'Hi ❤️', 1, 3, '1648129825'),
+(97, 12, 'ازيك', 1, 2, '1648130314'),
+(98, 12, 'الحمدلله ❤️', 2, 1, '1648130327'),
+(99, 13, 'كيف حالك', 1, 3, '1648130358');
 
 -- --------------------------------------------------------
 
@@ -141,34 +202,66 @@ CREATE TABLE `posts` (
   `text` text NOT NULL,
   `images` text NOT NULL,
   `user` bigint(20) NOT NULL,
-  `time` varchar(255) NOT NULL
+  `time` varchar(255) NOT NULL,
+  `visibility` tinyint(4) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `posts`
 --
 
-INSERT INTO `posts` (`id`, `text`, `images`, `user`, `time`) VALUES
-(2, 'Welcome my friends', '167954030527239.jpeg,440831186852562.jpeg,725373488376702.jpeg', 1, '1647799311'),
-(3, 'this is my second post and its without photos. ????', '', 1, '1647799362'),
-(5, 'gajldgjaldhfadfasdfadsf', '', 1, '1647799425'),
-(7, 'new post 2', '868592317471461.jpeg', 2, '1647802232'),
-(8, '', '214844905360800.jpeg', 2, '1647802953'),
-(9, '', '999773332228044.jpeg,14176357172505.jpeg,784244609795790.jpeg,680324779918080.jpeg', 2, '1647803481'),
-(10, '', '441042467872347.jpeg,210596929650855.jpeg', 2, '1647804227'),
-(11, 'new amazing post', '1434915244125.jpeg,427790902021461.jpeg,265698647927955.jpeg,356952588021315.jpeg,166726143458226.jpeg,565313151181185.jpeg,324956462013909.jpeg', 2, '1647804412'),
-(12, 'dasdasd', '', 2, '1647805775'),
-(21, 'Good Morning', '192831518839608.jpeg,601767360395685.jpeg,703689168935511.jpeg', 1, '1647815323'),
-(22, '', '714723904871559.jpeg,698810587052490.jpeg,644276793587229.jpeg', 1, '1647815377'),
-(23, 'post gammed', '462423994975800.jpeg', 1, '1647821675'),
-(24, 'dsadsadsad', '', 1, '1647823025'),
-(25, 'dsad', '1785089523195.jpeg,13365658690461.jpeg', 1, '1647823037'),
-(26, '', '934169954601906.jpeg,356021316287802.jpeg,922277940632235.jpeg,15801890392926.jpeg,140597797204161.jpeg,322696267755939.jpeg,416513826381807.jpeg,4685876815455.jpeg,25597293854616.jpeg,499280111625537.jpeg,248373970938918.jpeg,847810724208624.jpeg,676736701901766.jpeg,515987275182093.jpeg,39629837319930.jpeg,371812415000004.jpeg,936911834316513.jpeg', 1, '1647823121'),
-(27, '', '321936304289886.jpeg,706944944405403.jpeg,351412010784450.jpeg,641191704257016.jpeg,565970944975227.jpeg,555158003087556.jpeg,263333253661038.jpeg,424122767651583.jpeg,14266925384778.jpeg,776833090271865.jpeg,986582575105677.jpeg,48155070621339.jpeg,369836705720691.jpeg,742950500459706.jpeg,369312036612849.jpeg', 1, '1647823244'),
-(28, '', '779136380749782.jpeg,411626495003823.jpeg,389542569627222.jpeg,952970820557283.jpeg,975456827861670.jpeg,955647463966173.jpeg,465641142318891.jpeg,235047055753719.jpeg,223681089793986.jpeg,140975035716537.jpeg,85017154284315.jpeg', 1, '1647823301'),
-(29, '', '476536223721789.jpeg,26574526891539.jpeg,141008807049066.jpeg,204739622920107.jpeg,392039507398473.jpeg,4574628181431.jpeg,381753892172862.jpeg,724456030701645.jpeg,695127827905236.jpeg,30870907840476.jpeg,856192659441273.jpeg,580583607642819.jpeg,342746830009188.jpeg,242472139061130.jpeg,421321068469521.jpeg,659661273305397.jpeg', 1, '1647823528'),
-(30, '', '796644031219641.jpeg,351749887663383.jpeg,366696965426121.jpeg', 1, '1647823651'),
-(31, '', '812996968052412.jpeg,897106663011735.jpeg', 1, '1647823663');
+INSERT INTO `posts` (`id`, `text`, `images`, `user`, `time`, `visibility`) VALUES
+(97, 'Heros ❤️', '885581698983399.jpeg,118329435693018.jpeg,921546654768135.jpeg', 1, '1648128662', 1),
+(98, 'Good Day ..', '22163511097233.jpeg,819727241427765.jpeg,989232369579729.jpeg,488116237434606.jpeg,614461447230048.jpeg,344972268833049.jpeg', 2, '1648128872', 1),
+(99, 'صباح الفل', '', 3, '1648130023', 1),
+(100, 'لابتوبي الجديد', '967690682253900.jpeg', 3, '1648130051', 1),
+(101, 'مساء الخير', '', 2, '1648130211', 1),
+(102, 'You don&#39;t have to be great to start .. but you have to start to be great ❤️', '', 1, '1648130517', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `profile_cover`
+--
+
+CREATE TABLE `profile_cover` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `user` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `profile_cover`
+--
+
+INSERT INTO `profile_cover` (`id`, `name`, `user`) VALUES
+(16, '572740076024424.jpeg', 1),
+(17, '351788406201144.jpeg', 2),
+(18, '327251685018654.jpeg', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `saved`
+--
+
+CREATE TABLE `saved` (
+  `id` bigint(20) NOT NULL,
+  `post` bigint(20) NOT NULL,
+  `user` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `saved`
+--
+
+INSERT INTO `saved` (`id`, `post`, `user`) VALUES
+(24, 97, 2),
+(25, 97, 3),
+(26, 100, 1),
+(28, 98, 1),
+(29, 102, 2),
+(30, 99, 2);
 
 -- --------------------------------------------------------
 
@@ -182,21 +275,23 @@ CREATE TABLE `users` (
   `lname` varchar(30) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `bio` varchar(255) NOT NULL,
   `date_of_birth` date NOT NULL,
   `gender` enum('male','female') NOT NULL,
   `join_date` date NOT NULL DEFAULT current_timestamp(),
   `reg_status` tinyint(4) NOT NULL DEFAULT 0,
-  `verify_code` varchar(60) DEFAULT NULL
+  `verify_code` varchar(60) DEFAULT NULL,
+  `trust_user` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `fname`, `lname`, `email`, `password`, `date_of_birth`, `gender`, `join_date`, `reg_status`, `verify_code`) VALUES
-(1, 'Youssef', 'Ahmed', 'yossef96.ahmad@gmail.com', '4297f44b13955235245b2497399d7a93', '2000-11-04', 'male', '2022-03-20', 1, '44473'),
-(2, 'Fatma', 'Ahmed', 'fatma@gmail.com', '4297f44b13955235245b2497399d7a93', '2000-10-27', 'female', '2022-03-20', 1, '95780'),
-(3, 'Ahmed', 'Ali', 'ahmed.a@gmail.com', '3d186804534370c3c817db0563f0e461', '2000-06-14', 'male', '2022-03-20', 1, '28627');
+INSERT INTO `users` (`id`, `fname`, `lname`, `email`, `password`, `bio`, `date_of_birth`, `gender`, `join_date`, `reg_status`, `verify_code`, `trust_user`) VALUES
+(1, 'Youssef', 'Ahmed', 'yossef96.ahmad@gmail.com', '4297f44b13955235245b2497399d7a93', 'Software developer ❤️', '2000-11-04', 'male', '2022-03-20', 1, '44473', 1),
+(2, 'Fatma', 'Mohammed', 'fatma@gmail.com', '4297f44b13955235245b2497399d7a93', 'I love fashion', '2000-10-27', 'female', '2022-03-20', 1, '95780', 0),
+(3, 'Ahmed', 'Ali', 'ahmed.a@gmail.com', '4297f44b13955235245b2497399d7a93', 'bio 3', '2000-06-14', 'male', '2022-03-20', 1, '53176', 1);
 
 --
 -- Indexes for dumped tables
@@ -226,6 +321,23 @@ ALTER TABLE `comments_likes`
   ADD KEY `user_like_comment` (`user`);
 
 --
+-- Indexes for table `comments_reply`
+--
+ALTER TABLE `comments_reply`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `uesr_reply` (`user`),
+  ADD KEY `comment_reply` (`comment`);
+
+--
+-- Indexes for table `friends`
+--
+ALTER TABLE `friends`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `req_id` (`req_id`),
+  ADD KEY `user_send` (`send_user`),
+  ADD KEY `user_req` (`req_user`);
+
+--
 -- Indexes for table `likes`
 --
 ALTER TABLE `likes`
@@ -234,11 +346,34 @@ ALTER TABLE `likes`
   ADD KEY `user_like` (`user`);
 
 --
+-- Indexes for table `messages`
+--
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sender_user` (`send_user`),
+  ADD KEY `requester_user` (`req_user`);
+
+--
 -- Indexes for table `posts`
 --
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_posts` (`user`);
+
+--
+-- Indexes for table `profile_cover`
+--
+ALTER TABLE `profile_cover`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_profile_cover` (`user`);
+
+--
+-- Indexes for table `saved`
+--
+ALTER TABLE `saved`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_saved` (`user`),
+  ADD KEY `post_saved` (`post`);
 
 --
 -- Indexes for table `users`
@@ -254,31 +389,61 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `avatar`
 --
 ALTER TABLE `avatar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=185;
 
 --
 -- AUTO_INCREMENT for table `comments_likes`
 --
 ALTER TABLE `comments_likes`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT for table `comments_reply`
+--
+ALTER TABLE `comments_reply`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
+
+--
+-- AUTO_INCREMENT for table `friends`
+--
+ALTER TABLE `friends`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 
 --
 -- AUTO_INCREMENT for table `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+
+--
+-- AUTO_INCREMENT for table `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+
+--
+-- AUTO_INCREMENT for table `profile_cover`
+--
+ALTER TABLE `profile_cover`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `saved`
+--
+ALTER TABLE `saved`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -311,6 +476,20 @@ ALTER TABLE `comments_likes`
   ADD CONSTRAINT `user_like_comment` FOREIGN KEY (`user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `comments_reply`
+--
+ALTER TABLE `comments_reply`
+  ADD CONSTRAINT `comment_reply` FOREIGN KEY (`comment`) REFERENCES `comments` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `uesr_reply` FOREIGN KEY (`user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `friends`
+--
+ALTER TABLE `friends`
+  ADD CONSTRAINT `user_req` FOREIGN KEY (`req_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_send` FOREIGN KEY (`send_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `likes`
 --
 ALTER TABLE `likes`
@@ -318,10 +497,30 @@ ALTER TABLE `likes`
   ADD CONSTRAINT `user_like` FOREIGN KEY (`user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `messages`
+--
+ALTER TABLE `messages`
+  ADD CONSTRAINT `requester_user` FOREIGN KEY (`req_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `sender_user` FOREIGN KEY (`send_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `posts`
 --
 ALTER TABLE `posts`
   ADD CONSTRAINT `user_posts` FOREIGN KEY (`user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `profile_cover`
+--
+ALTER TABLE `profile_cover`
+  ADD CONSTRAINT `user_profile_cover` FOREIGN KEY (`user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `saved`
+--
+ALTER TABLE `saved`
+  ADD CONSTRAINT `post_saved` FOREIGN KEY (`post`) REFERENCES `posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_saved` FOREIGN KEY (`user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -50,7 +50,7 @@ for ($i = 0; $i < $imagesCount; $i++) {
 
     if (empty($errors)) {
         $db_images_name[] = $randName;
-        move_uploaded_file($tmpName, '../../assets/images/posts/' . $randName);
+        move_uploaded_file($tmpName, '../../includes/uploads/posts/' . $randName);
     }
 }
 
@@ -69,6 +69,28 @@ if (!empty($db_images_name) || !empty($text)) {
 
     if ($result > 0) {
         toastr("Posted successfully", "success");
-        redirect("index.php", null, 'script');
+
+
+        // Render posts count in current user profile page after add a new post
+        // Select posts for this user only
+        $posts = selectRows(
+            "SELECT posts.*, users.fname, users.lname FROM posts
+                                JOIN users ON users.id = posts.user
+                                WHERE users.id = ?
+                                ORDER BY time DESC
+                                ",
+            [$_SESSION['id']]
+        );
+
+        // Posts Count
+        $postsCount = count($posts);
+?>
+        <script>
+            $(".render-posts").click();
+
+            $(".profile-av-info #posts-count .value").html("<?php echo countNumK($postsCount) ?>")
+        </script>
+
+<?php
     }
 }

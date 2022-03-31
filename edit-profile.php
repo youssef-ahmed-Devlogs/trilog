@@ -19,7 +19,6 @@ $posts = selectRows("SELECT posts.*, users.fname, users.lname FROM posts
 // Posts Count
 $postsCount = count($posts);
 
-
 // Get friends of this user
 $friends = selectRows("SELECT users.id AS userid, users.fname, users.lname FROM friends
 JOIN users ON users.id = friends.req_user OR users.id = friends.send_user
@@ -102,26 +101,13 @@ $friendsCount = count($friends);
             </div>
             <div class="col">
 
-                <?php include 'includes/posts/add-post.php'; ?>
                 <div id="posts-area">
-
-                    <?php
-                    // Display posts for this user only
-
-                    foreach ($posts as $post) {
-                        include 'includes/posts/post.php';
-                    }
-
-                    ?>
-
-                    <?php if (count($posts) <= 0) { ?>
-                        <div class="content-empty mt-2">You has no posts.</div>
-                    <?php } ?>
+                    <?php include 'includes/profile/edit-profile-form.php'; ?>
                 </div>
             </div>
         </div>
     </div>
-    <button class="d-none render-posts" data-uid="<?php echo $_SESSION['id'] ?>"></button>
+    <button class="d-none render-posts"></button>
 
 </main>
 

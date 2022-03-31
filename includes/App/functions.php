@@ -60,6 +60,7 @@ function checkValidate($params)
     $validExtensions = isset($params['validExtensions']) ? $params['validExtensions'] : null;
     $validExtensions = isset($params['validExtensions']) ? $params['validExtensions'] : null;
     $fileSize = isset($params['fileSize']) ? $params['fileSize'] : null;
+    $in_data = isset($params['in_data']) ? $params['in_data'] : null;
 
     $errorsContainer = [];
     global $errorsContainer;
@@ -89,7 +90,7 @@ function checkValidate($params)
     }
 
     if ($check == "in_data") {
-        if (!in_array($val, ["male", "female"])) {
+        if (!in_array($val, $in_data)) {
             $errorsContainer[] = $msg;
         }
     }
@@ -237,8 +238,128 @@ function timeAgo($time)
     return $ago;
 }
 
+
+
 // Use to display avatar for users
-function showAvatar($name)
+function showAvatar($user)
 {
-    return !empty($name) ? 'includes/uploads/avatar/' . $name : 'includes/uploads/avatar/default-avatar.jpg';
+    $avatar = selectColumn("name", "avatar", "WHERE user = ? ORDER BY id DESC", [$user]);
+    return !empty($avatar) ? 'includes/uploads/avatar/' . $avatar : 'includes/uploads/avatar/default-avatar.jpg';
+}
+
+// Use to display avatar for users
+function showCover($user)
+{
+    $cover = selectColumn("name", "profile_cover", "WHERE user = ? ORDER BY id DESC", [$user]);
+    return !empty($cover) ? 'includes/uploads/cover/' . $cover : 'includes/uploads/cover/default-cover.jpg';
+}
+
+
+// Use to display count of any things like this [100 posts, 1k posts, 1m posts]
+function countNumK($number)
+{
+    $numStr = (string)$number;
+    $numLen =  mb_strlen($number, "utf-8");
+
+    if ($numLen === 4) { // from 1000 to 9999
+        $numStr = substr($numStr, 0, 1);
+
+        $i = (int)($numStr . "000");
+        while ($i < 10000) {
+
+            if ($number == $i) {
+                $number = $numStr . "k";
+            } elseif ($number > $i) {
+                $number = "+" . $numStr . "k";
+            }
+
+            $i += 1000;
+        }
+    } elseif ($numLen === 5) { // from 10000 to 99999
+        $numStr = substr($numStr, 0, 2);
+
+        $i = (int)($numStr . "000");
+        while ($i < 100000) {
+
+            if ($number == $i) {
+                $number = $numStr . "k";
+            } elseif ($number > $i) {
+                $number = "+" . $numStr . "k";
+            }
+
+            $i += 10000;
+        }
+    } elseif ($numLen === 6) { // from 100000 to 999999
+        $numStr = substr($numStr, 0, 3);
+
+        $i = (int)($numStr . "000");
+        while ($i < 1000000) {
+
+            if ($number == $i) {
+                $number = $numStr . "k";
+            } elseif ($number > $i) {
+                $number = "+" . $numStr . "k";
+            }
+
+            $i += 100000;
+        }
+    } elseif ($numLen === 7) { // from 1000000 to 9999999
+
+        $numStr = substr($numStr, 0, 1);
+
+        $i = (int)($numStr . "000000");
+        while ($i < 10000000) {
+
+            if ($number == $i) {
+                $number = $numStr . "m";
+            } elseif ($number > $i) {
+                $number = "+" . $numStr . "m";
+            }
+
+            $i += 1000000;
+        }
+    } elseif ($numLen === 8) { // from 10000000 to 99999999
+
+        $numStr = substr($numStr, 0, 2);
+
+        $i = (int)($numStr . "000000");
+        while ($i < 100000000) {
+
+            if ($number == $i) {
+                $number = $numStr . "m";
+            } elseif ($number > $i) {
+                $number = "+" . $numStr . "m";
+            }
+
+            $i += 10000000;
+        }
+    } elseif ($numLen === 9) { // from 100000000 to 999999999
+
+        $numStr = substr($numStr, 0, 3);
+
+        $i = (int)($numStr . "000000");
+        while ($i < 1000000000) {
+
+            if ($number == $i) {
+                $number = $numStr . "m";
+            } elseif ($number > $i) {
+                $number = "+" . $numStr . "m";
+            }
+
+            $i += 100000000;
+        }
+    }
+
+    return $number;
+}
+
+
+function cutstrMax($str, $max, $sprator)
+{
+    $str = trim($str);
+    if (mb_strlen($str, "utf8") > $max) {
+        $str = substr($str, 0, $max) . $sprator;
+    }
+
+    return $str;
 }

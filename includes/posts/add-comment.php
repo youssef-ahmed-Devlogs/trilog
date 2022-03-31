@@ -24,9 +24,8 @@ if (empty($errors)) {
     if ($result > 0) {
         toastr("Comment Added.", "success");
 ?>
-
         <script>
-            location.reload();
+            $(".render-comments").click();
         </script>
 
 <?php

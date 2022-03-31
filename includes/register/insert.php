@@ -74,9 +74,10 @@ $errors = checkValidate([
 ]);
 
 $errors = checkValidate([
+    "check" => "in_data",
     "val" => $gender,
+    "in_data" => ["male", "female"],
     "msg" => "Gender must be Male or Female.",
-    "check" => "in_data"
 ]);
 
 
